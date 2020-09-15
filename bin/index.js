@@ -1,52 +1,7 @@
 #!/usr/bin/env node
-var data = require("../data.js");
+var data = require("../data.js").data;
 var params = process.argv;
 var error = "";
-
-var stringify = JSON.stringify(data);
-console.log(stringify);
-var parsedData = JSON.parse(stringify);
-// TESTING console.log
-// for (i = 0; i < parsedData.data.length;i++) {
-//     for (j = 0; j < parsedData.data[i].people.length;j++) {
-//         for (k = 0; k < parsedData.data[i].people[j].animals.length;k++) {
-//             console.log(parsedData.data[i].people[j].animals[k]);
-//         }
-//     }
-// }
-
-function getCountries(parsedData) {
-    let countries = [];
-    for (i = 0;i < parsedData.data.length;i++) {
-        // console.log(parsedData.data[i].name);
-        countries.push(parsedData.data[i].name);
-    }
-    return countries;
-}
-
-function getPeople(parsedData) {
-    let people = [];
-    for (i = 0; i < parsedData.data.length;i++) {
-        for (j = 0; j < parsedData.data[i].people.length;j++) {
-            // console.log(parsedData.data[i].people[j]);
-            people.push(parsedData.data[i].people[j]);
-        }
-    }
-    return people;
-}
-
-function getAnimals(parsedData) {
-    let animals = [];
-    for (i = 0; i < parsedData.data.length;i++) {
-        for (j = 0; j < parsedData.data[i].people.length;j++) {
-            for (k = 0; k < parsedData.data[i].people[j].animals.length;k++) {
-                // console.log(parsedData.data[i].people[j].animals[k]);
-                animals.push(parsedData.data[i].people[j].animals[k]);
-            }
-        }
-    }
-    return animals;
-}
 
 function getFilterArgument(params) {
     return params.split('=')[1];
@@ -77,9 +32,42 @@ function app() {
             return
         }
         arg = getFilterArgument(params);
-        let animals = getAnimals(parsedData);
-        console.log(animals.filter(x => x.name.includes(arg)));
         console.log("arg= ", arg);
+        let final = []
+        data.forEach(country => {
+            let animalInCountry = false
+            if (country.people.map(people => people.animals).flat().filter(animal => animal.name.includes(arg)).length > 0)
+                animalInCountry = true
+            if (animalInCountry) {
+                let currentCountry = {
+                    name: country.name
+                }
+                final.push(currentCountry)
+                // console.log(final)
+                country.people.forEach(people => {
+                    let animalInPeople = false
+                    if (people.animals.map(a => a.name).filter(a => a.includes(arg)).length > 0)
+                        animalInPeople = true
+                    if (animalInPeople) {
+                        let currentPeople = {
+                            name: people.name
+                        }
+                        final.push(currentPeople)
+                        // console.log(final)
+                        people.animals.forEach(animal => {
+                            if (animal.name.includes(arg)) {
+                                let currentAnimal = {
+                                    name: animal.name
+                                }
+                                final.push(currentAnimal)
+                                // console.log(final)
+                            }
+                        })
+                    }
+                })
+            }
+        })
+        console.log(final);
     }
 }
 
