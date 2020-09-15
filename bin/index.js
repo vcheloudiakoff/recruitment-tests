@@ -9,30 +9,21 @@ function app() {
     if (process.argv.length < 3 || process.argv.length > 4) {
         console.log("You should have only one or two options")
         console.log("Options: --filter=[PARAMETER] and --count")
-        error = "Options error"
-        return error
+        return
     }
     filter = params.filter(x => x.includes("--filter"))
     count = params.filter(x => x.includes("--count"))
     filter = filter.pop()
     count = count.pop()
-    if (typeof filter === "undefined") {
+    if (typeof filter === "undefined" || typeof count === "undefined" && process.argv.length === 4) {
         console.log("Usage: node bin/index.js [ARG] ")
         console.log("ARG: --filter=[PARAMETER] and --count")
-        error = "Usage"
-        return error
-    }
-    if (typeof count === "undefined" && process.argv.length === 4) {
-        console.log("Usage: node bin/index.js [ARG] ")
-        console.log("ARG: --filter=[PARAMETER] and --count")
-        error = "Usage"
-        return error
+        return
     } else {
         if (filter === "--filter" || filter.split("=")[1] === "") {
             console.log("Filter usage: --filter=[PARAMETER]")
             console.log("And this need to have one parameter")
-            error = "Filter usage"
-            return error
+            return
         }
         arg = filter.split("=")[1]
         let final = []
