@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "A command line tool",
   "main": "bin/index.js",
-  "scripts": {
-    "test": "qunit"
-  },
+  "scripts": {},
   "bin": {
     "parse": "./bin/index.js"
   },
@@ -18,8 +16,5 @@
   "bugs": {
     "url": "https://github.com/vcheloudiakoff/recruitment-tests/issues"
   },
-  "homepage": "https://github.com/vcheloudiakoff/recruitment-tests#readme",
-  "devDependencies": {
-    "qunit": "^2.11.2"
-  }
+  "homepage": "https://github.com/vcheloudiakoff/recruitment-tests#readme"
 }

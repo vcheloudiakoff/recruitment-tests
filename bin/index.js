@@ -8,7 +8,7 @@ var error = ""
 function app() {
     if (process.argv.length < 3 || process.argv.length > 4) {
         console.log("You should have only one or two options")
-        console.log("Options: --filter=[PARAMETER] or/and --count")
+        console.log("Options: --filter=[PARAMETER] and --count")
         error = "Options error"
         return error
     }
@@ -18,13 +18,13 @@ function app() {
     count = count.pop()
     if (typeof filter === "undefined") {
         console.log("Usage: node bin/index.js [ARG] ")
-        console.log("ARG: --filter=[PARAMETER] or/and --count")
+        console.log("ARG: --filter=[PARAMETER] and --count")
         error = "Usage"
         return error
     }
     if (typeof count === "undefined" && process.argv.length === 4) {
         console.log("Usage: node bin/index.js [ARG] ")
-        console.log("ARG: --filter=[PARAMETER] or/and --count")
+        console.log("ARG: --filter=[PARAMETER] and --count")
         error = "Usage"
         return error
     } else {
