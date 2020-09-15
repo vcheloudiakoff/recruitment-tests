@@ -5,10 +5,6 @@ var filter = ""
 var count = ""
 var error = ""
 
-function getFilterArgument(params) {
-    return params.split('=')[1]
-}
-
 function app() {
     if (process.argv.length < 3 || process.argv.length > 4) {
         console.log("You should have only one or two options")
@@ -20,17 +16,15 @@ function app() {
     count = params.filter(x => x.includes("--count"))
     filter = filter.pop()
     count = count.pop()
-    console.log(filter)
-    console.log(count)
     if (typeof filter === "undefined") {
         console.log("Usage: node bin/index.js [ARG] ")
-        console.log("ARG: --filter=[PARAMETER] or --count")
+        console.log("ARG: --filter=[PARAMETER] or/and --count")
         error = "Usage"
         return error
     }
     if (typeof count === "undefined" && process.argv.length === 4) {
         console.log("Usage: node bin/index.js [ARG] ")
-        console.log("ARG: --filter=[PARAMETER] or --count")
+        console.log("ARG: --filter=[PARAMETER] or/and --count")
         error = "Usage"
         return error
     } else {
@@ -75,7 +69,12 @@ function app() {
             }
         })
         if (typeof count !== 'undefined') {
-            console.log('Count option OK')
+            final.forEach((element, index) => {
+                element.name = element.name.concat(` [${index + 1}]`)
+                element.people.forEach((element, index) => {
+                    element.name = element.name.concat(` [${index + 1}]`)
+                })
+            })
             final.forEach(x => console.log(JSON.stringify(x, null, 2)))
         } else {
             final.forEach(x => console.log(JSON.stringify(x, null, 2)))
