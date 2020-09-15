@@ -53,14 +53,12 @@ function app() {
                             animals: []
                         }
                         currentCountry.people.push(currentPeople)
-                        final.push(currentPeople)
                         people.animals.forEach(animal => {
                             if (animal.name.includes(arg)) {
                                 let currentAnimal = {
                                     name: animal.name
                                 }
                                 currentPeople.animals.push(currentAnimal)
-                                final.push(currentAnimal)
                             }
                         })
                     }
