@@ -32,7 +32,6 @@ function app() {
             return
         }
         arg = getFilterArgument(params);
-        console.log("arg= ", arg);
         let final = []
         data.forEach(country => {
             let animalInCountry = false
@@ -40,34 +39,35 @@ function app() {
                 animalInCountry = true
             if (animalInCountry) {
                 let currentCountry = {
-                    name: country.name
+                    name: country.name,
+                    people: []
                 }
                 final.push(currentCountry)
-                // console.log(final)
                 country.people.forEach(people => {
                     let animalInPeople = false
                     if (people.animals.map(a => a.name).filter(a => a.includes(arg)).length > 0)
                         animalInPeople = true
                     if (animalInPeople) {
                         let currentPeople = {
-                            name: people.name
+                            name: people.name,
+                            animals: []
                         }
+                        currentCountry.people.push(currentPeople)
                         final.push(currentPeople)
-                        // console.log(final)
                         people.animals.forEach(animal => {
                             if (animal.name.includes(arg)) {
                                 let currentAnimal = {
                                     name: animal.name
                                 }
+                                currentPeople.animals.push(currentAnimal)
                                 final.push(currentAnimal)
-                                // console.log(final)
                             }
                         })
                     }
                 })
             }
         })
-        console.log(final);
+        final.forEach(x => console.log(JSON.stringify(x, null, 2)))
     }
 }
 
