@@ -13,7 +13,7 @@ function createObject(data, input, test) {
     filter = filter.pop()
     count = count.pop()
     if (typeof filter === "undefined" || typeof count === "undefined" && process.argv.length === 4) {
-        console.log("Usage: node bin/index.js [ARG] ")
+        console.log("Usage: node src/index.js [ARG] or node . [ARG] ")
         console.log("ARG: --filter=[PARAMETER] and --count")
         return { data: undefined, count: undefined }
     } else {

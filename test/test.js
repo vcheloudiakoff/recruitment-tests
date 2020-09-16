@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const func = require('./createObject.js')
+const func = require('../src/createObject.js')
 
 function test1() {
 	let data = [{
