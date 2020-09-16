@@ -149,7 +149,90 @@ function test4() {
 	}
 }
 
+function test5() {
+	let data = [{
+		name: 'Toto',
+		people:
+			[{
+				name: 'Toto',
+				animals:
+					[{ name: 'Aardvark' },
+					{ name: 'B' }]
+			}],
+	}, {
+		name: 'Tata',
+		people:
+			[{
+				name: 'Tata',
+				animals:
+					[{ name: 'Aardvark' },
+					{ name: 'B' }]
+			}, {
+				name: 'Titi',
+				animals:
+					[{ name: 'Aardwolf' },
+					{ name: 'B' },
+					{ name: 'JaRar' }]
+			}]
+	}, {
+		name: 'Titi',
+		people:
+			[{
+				name: 'Toto',
+				animals:
+					[{ name: 'Aardwolf' },
+					{ name: 'B' }]
+			}, {
+				name: 'Tata',
+				animals:
+					[{ name: 'Aardvark' },
+					{ name: 'B' },
+					{ name: 'Jar' }]
+			}]
+	}]
+	if (JSON.stringify(func.createObject(data, ["node", "index.js", "--filter=ar"], true).data) == JSON.stringify([{
+		name: 'Toto',
+		people:
+			[{
+				name: 'Toto',
+				animals:
+					[{ name: 'Aardvark' }]
+			}],
+	}, {
+		name: 'Tata',
+		people:
+			[{
+				name: 'Tata',
+				animals:
+					[{ name: 'Aardvark' }]
+			}, {
+				name: 'Titi',
+				animals:
+					[{ name: 'Aardwolf' },
+					{ name: 'JaRar' }]
+			}]
+	}, {
+		name: 'Titi',
+		people:
+			[{
+				name: 'Toto',
+				animals:
+					[{ name: 'Aardwolf' }]
+			}, {
+				name: 'Tata',
+				animals:
+					[{ name: 'Aardvark' },
+					{ name: 'Jar' }]
+			}]
+	}])) {
+		console.log('\x1b[33m', "More longer test:\n\tnode index.js --filter=ar \t  =>", "\x1b[32m", "OK\n");
+	} else {
+		console.log('\x1b[33m', "More longer test:\n\tnode index.js --filter=ar \t  =>", "\x1b[31m", "KO\n");
+	}
+}
+
 test1()
 test2()
 test3()
 test4()
+test5()
